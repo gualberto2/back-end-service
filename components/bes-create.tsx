@@ -23,6 +23,8 @@ import { z } from "zod";
 import axios from "axios";
 import { Input } from "./ui/input";
 import { createClient } from "@/lib/supabase/client";
+import { PlusCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -30,6 +32,8 @@ const formSchema = z.object({
 
 const CreateBes = () => {
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const supabase = createClient();
 
@@ -48,6 +52,9 @@ const CreateBes = () => {
         .from("bes")
         .insert([{ name: values.name }])
         .select();
+
+      router.push("/");
+      router.refresh();
     } catch (error) {
     } finally {
       setLoading(false);
@@ -55,7 +62,11 @@ const CreateBes = () => {
   };
   return (
     <Dialog>
-      <DialogTrigger>Create BES</DialogTrigger>
+      <DialogTrigger>
+        <Button variant="default" className="flex flex-row gap-1">
+          Create <PlusCircle />
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a BES Here</DialogTitle>
@@ -83,17 +94,4 @@ const CreateBes = () => {
                   />
                   <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                     <Button variant="outline">Cancel</Button>
-                    <Button disabled={loading} type="submit">
-                      Continue
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </div>
-          </div>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
-  );
-};
-export default CreateBes;
+                    <Button disabled={loadi
