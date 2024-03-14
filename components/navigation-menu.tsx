@@ -47,9 +47,7 @@ export function Navigation({
       )}
     >
       <div>
-        <div className="border px-2 py-1 font-light text-gray-500 hover:bg-gray-100">
-          <CreateBes />
-        </div>
+        <CreateBes />
       </div>
       {routes.map((route) => (
         <Link
