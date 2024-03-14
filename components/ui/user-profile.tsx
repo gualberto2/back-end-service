@@ -5,11 +5,23 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "./use-toast";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import auth from "@/context/get-user";
+
 export function Profile() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+
   const supabase = createClient();
+  const user = auth();
 
   const handleLogout = async () => {
     try {
@@ -24,17 +36,4 @@ export function Profile() {
 
       router.refresh();
       setLoading(false);
-    } catch (error: any) {
-      console.error("Logout error:", error.message);
-      toast({ title: "No work" });
-      setLoading(false);
-    }
-  };
-  const handleUpdate = () => {};
-
-  return (
-    <div>
-      <div>hello</div>
-    </div>
-  );
-}
+    } 
