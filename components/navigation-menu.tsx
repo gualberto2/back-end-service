@@ -8,6 +8,7 @@ import { useBesModal } from "@/hooks/use-bes-modal";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CreateBes from "./bes-create";
+import { Profile } from "./ui/user-profile";
 
 export function Navigation({
   className,
@@ -64,7 +65,6 @@ export function Navigation({
           {route.label}
         </Link>
       ))}
-      <div></div>
     </nav>
   );
 }
