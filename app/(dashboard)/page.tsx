@@ -39,7 +39,7 @@ const SetupPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [supabase]);
 
   return (
     <div className="max-w-7xl mx-auto my-8">
