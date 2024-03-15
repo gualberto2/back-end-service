@@ -136,7 +136,7 @@ export function Profile() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Github className="mr-2 h-4 w-4" />
+          {/* <Github className="mr-2 h-4 w-4" /> */}
           <span>GitHub</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
