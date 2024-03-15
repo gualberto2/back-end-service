@@ -52,7 +52,6 @@ const SetupPage = () => {
           </div>
         )
       ) : (
-        // Skeleton Loader shown during loading, regardless of tabs.length
         <div>
           <div className="flex flex-col space-y-3">
             <Skeleton className="h-[125px] w-[250px] rounded-xl" />
