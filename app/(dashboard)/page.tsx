@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs } from "@/components/ui/tabs";
