@@ -94,4 +94,17 @@ const CreateBes = () => {
                   />
                   <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                     <Button variant="outline">Cancel</Button>
-                    <Button disabled={loadi
+                    <Button disabled={loading} type="submit">
+                      Continue
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          </div>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+};
+export default CreateBes;
