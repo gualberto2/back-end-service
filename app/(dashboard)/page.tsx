@@ -1,6 +1,5 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs } from "@/components/ui/tabs";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
@@ -13,7 +12,6 @@ interface Tab {
 
 const SetupPage = () => {
   const [tabs, setTabs] = useState<Tab[]>([]);
-  const [active, setActive] = useState<Tab | undefined>(undefined);
   const supabase = createClient();
 
   useEffect(() => {
@@ -22,14 +20,14 @@ const SetupPage = () => {
         .from("bes")
         .select("name, id");
 
-      if (!error && besData && besData.length > 0) {
+      if (!error && besData) {
+        // Assuming you want to create tabs based on the fetched data
         const formattedTabs = besData.map((bes) => ({
           title: bes.name,
-          value: bes.id.toString(),
-          content: `Content for ${bes.name}`,
+          value: bes.id.toString(), // Ensure the value is a string
+          content: `Content for ${bes.name}`, // This is just an example
         }));
         setTabs(formattedTabs);
-        setActive(formattedTabs[0]); // Set the first tab as active by default
       } else {
         console.error(error);
       }
@@ -37,11 +35,19 @@ const SetupPage = () => {
 
     fetchData();
   }, []);
+
   return (
-    <div className=" max-w-7xl mx-auto my-8">
-      {tabs.length > 0 && active ? (
-        <Tabs tabs={tabs} />
+    <div>
+      {tabs.length > 0 ? (
+        <Tabs
+          tabs={tabs}
+          // Optionally, you can pass other props like className here
+        />
       ) : (
-        <div>
-          <div className="flex flex-col space-y-3">
-        
+        <div>Loading...</div> // Or any other placeholder you prefer
+      )}
+    </div>
+  );
+};
+
+export default SetupPage;

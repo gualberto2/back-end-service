@@ -14,22 +14,12 @@ export function Navigation({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
+  const [loading, setLoading] = useState(false);
+
   const pathname = usePathname();
   const params = useParams();
   const router = useRouter();
   const supabase = createClient();
-
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const onOpen = useBesModal((state) => state.onOpen);
-  const isOpen = useBesModal((state) => state.isOpen);
-
-  useEffect(() => {
-    if (!isOpen) {
-      onOpen();
-    }
-  }, [isOpen, onOpen]);
 
   const routes = [
     {

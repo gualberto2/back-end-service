@@ -1,6 +1,7 @@
 "use client";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -25,6 +26,8 @@ import { Input } from "./ui/input";
 import { createClient } from "@/lib/supabase/client";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast, useToast } from "./ui/use-toast";
+import { useBesModal } from "@/hooks/use-bes-modal";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -33,8 +36,10 @@ const formSchema = z.object({
 const CreateBes = () => {
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
+  const { toast } = useToast();
+  const { onClose } = useBesModal();
 
+  const router = useRouter();
   const supabase = createClient();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,16 +58,37 @@ const CreateBes = () => {
         .insert([{ name: values.name }])
         .select();
 
-      router.push("/");
-      router.refresh();
+      if (!error) {
+        toast({
+          title: "Successfully created!",
+          description: `The BES ${values.name} has been created!`,
+        });
+
+        onClose();
+
+        router.push("/");
+        await router.refresh();
+      } else {
+        toast({
+          title: "Error",
+          description: "An error occurred while creating the BES.",
+        });
+      }
     } catch (error) {
+      // Handle any other errors here
+      console.error("Submission error:", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
     } finally {
       setLoading(false);
     }
   };
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="default" className="flex flex-row gap-1">
           Create <PlusCircle />
         </Button>
@@ -93,5 +119,23 @@ const CreateBes = () => {
                     )}
                   />
                   <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                    <Button variant="outline">Cancel</Button>
-                    <Button disabled={loadi
+                    <DialogClose asChild>
+                      <Button type="button" variant="secondary">
+                        Close
+                      </Button>
+                    </DialogClose>
+
+                    <Button disabled={loading} type="submit">
+                      Continue
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          </div>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+};
+export default CreateBes;
