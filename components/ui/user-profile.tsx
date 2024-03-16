@@ -8,8 +8,6 @@ import { toast } from "./use-toast";
 
 import auth from "@/context/get-user";
 
-import { CgProfile } from "react-icons/cg";
-
 import {
   Cloud,
   CreditCard,
@@ -74,8 +72,8 @@ export function Profile() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Profile />
+      <DropdownMenuTrigger asChild>
+        <User />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

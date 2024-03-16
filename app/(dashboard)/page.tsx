@@ -11,7 +11,11 @@ interface Tab {
   content: string;
 }
 
-const SetupPage = () => {
+interface SetupPageProps {
+  params: { besId: string };
+}
+
+const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [active, setActive] = useState<Tab | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -39,7 +43,7 @@ const SetupPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [supabase]);
 
   return (
     <div className="max-w-7xl mx-auto my-8">

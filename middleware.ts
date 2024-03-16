@@ -7,7 +7,6 @@ export async function middleware(request: NextRequest) {
       headers: request.headers,
     },
   });
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -57,11 +56,9 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // If the user is not logged in, redirect to /auth
   if (!user) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
-
   return NextResponse.next();
 }
 

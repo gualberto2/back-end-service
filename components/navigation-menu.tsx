@@ -1,12 +1,10 @@
 "use client";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useBesModal } from "@/hooks/use-bes-modal";
 
 import { useParams, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+
 import CreateBes from "./bes-create";
 import { Profile } from "./ui/user-profile";
 
@@ -14,12 +12,8 @@ export function Navigation({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-  const [loading, setLoading] = useState(false);
-
   const pathname = usePathname();
   const params = useParams();
-  const router = useRouter();
-  const supabase = createClient();
 
   const routes = [
     {

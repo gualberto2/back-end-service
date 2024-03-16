@@ -1,5 +1,4 @@
 import Navbar from "@/components/navbar";
-import { AuthProvider } from "@/context/userContext";
 
 export default async function SetupLayout({
   children,
@@ -8,10 +7,8 @@ export default async function SetupLayout({
 }) {
   return (
     <>
-      <AuthProvider>
-        <Navbar />
-        {children}
-      </AuthProvider>
+      <Navbar />
+      {children}
     </>
   );
 }
