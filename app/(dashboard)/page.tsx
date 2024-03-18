@@ -122,7 +122,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
                 </div>
               )
             ) : (
-              <div className="flex flex-row p-2 justify-around">
+              <div className="flex flex-col md:flex-row gap-4 p-2 justify-around">
                 <div className="flex flex-col space-y-3">
                   <Skeleton className="h-[125px] w-[250px] rounded-xl" />
                   <div className="space-y-2">

@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
 import { AlignLeft } from "lucide-react";
 import { Button } from "./ui/button";
 import { Navigation } from "./navigation-menu";

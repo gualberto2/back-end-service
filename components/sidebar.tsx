@@ -1,25 +1,10 @@
-// import Sidebarvigation from "./sidebarvigation";
-
-// const Sidebar = async () => {
-//   return (
-//     <aside className="border-r absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear">
-//       <div className="border-r">
-//         <div className="flex h-14 items-center px-4">
-//           <Sidebarvigation />
-//           <div className="ml-auto flex items-center space-x-4"></div>
-//         </div>
-//       </div>
-//     </aside>
-//   );
-// };
-// export default Sidebar;
-
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { X } from "lucide-react";
+import SidebarNavigation from "./sidebarvigation";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -76,7 +61,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-50 flex h-screen w-54 flex-col overflow-y-hidden bg-popover duration-150 ease-in-out border-r  lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen lg:w-60 flex-col overflow-y-hidden bg-popover duration-150 ease-in-out border-r  lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -95,6 +80,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         >
           <X />
         </button>
+      </div>
+      <div className="">
+        <SidebarNavigation
+          section="Projects"
+          items={[{ name: "All Projects", link: "/#" }]}
+        />
+        <SidebarNavigation
+          section="Account"
+          items={[
+            { name: "Preferences", link: "/#" },
+            { name: "Security", link: "/#" },
+          ]}
+        />
+        <SidebarNavigation
+          section="Documentation"
+          items={[
+            { name: "Guides", link: "/#" },
+            { name: "API Reference", link: "/#" },
+          ]}
+        />
       </div>
     </aside>
   );
