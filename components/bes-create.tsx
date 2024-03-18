@@ -21,10 +21,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { z } from "zod";
-import axios from "axios";
+
 import { Input } from "./ui/input";
 import { createClient } from "@/lib/supabase/client";
-import { PlusCircle } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 import { toast, useToast } from "./ui/use-toast";
 import { useBesModal } from "@/hooks/use-bes-modal";
@@ -90,7 +90,7 @@ const CreateBes = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="default" className="flex flex-row gap-1">
-          Create <PlusCircle />
+          New Project
         </Button>
       </DialogTrigger>
       <DialogContent>
