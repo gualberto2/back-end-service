@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { X } from "lucide-react";
 import SidebarNavigation from "./sidebarvigation";
+import { Profile } from "./ui/user-profile";
+import { Button } from "./ui/button";
+import Logout from "./logout";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -81,7 +84,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <X />
         </button>
       </div>
-      <div className="">
+      <div className="flex flex-col ">
         <SidebarNavigation
           section="Projects"
           items={[{ name: "All Projects", link: "/#" }]}
@@ -100,6 +103,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             { name: "API Reference", link: "/#" },
           ]}
         />
+        <div className="block md:hidden">
+          <Logout />
+        </div>
       </div>
     </aside>
   );
