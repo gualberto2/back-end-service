@@ -1,12 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 import { useParams, usePathname } from "next/navigation";
 
-import CreateBes from "./bes-create";
 import { Profile } from "./ui/user-profile";
+import BesSwitcher from "./bes-switcher";
 
 export function Navigation({
   className,
@@ -30,10 +29,8 @@ export function Navigation({
         className
       )}
     >
-      <div>
-        <CreateBes />
-      </div>
-      {routes.map((route) => (
+      <div>{/* <BesSwitcher items={} /> */}</div>
+      {/* {routes.map((route) => (
         <Link
           key={route.href}
           href={route.href}
@@ -46,7 +43,7 @@ export function Navigation({
         >
           {route.label}
         </Link>
-      ))}
+      ))} */}
     </nav>
   );
 }
