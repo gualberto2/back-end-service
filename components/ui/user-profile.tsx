@@ -73,7 +73,9 @@ export function Profile() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <User />
+        <div className="bg-white dark:bg-black border p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">
+          <User />
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
