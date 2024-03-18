@@ -21,6 +21,7 @@ import {
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CreateBes from "@/components/bes-create";
+import { redirect } from "next/navigation";
 
 interface Card {
   title: string;
@@ -64,13 +65,13 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
       setLoading(true);
       let { data: besData, error } = await supabase
         .from("bes")
-        .select("name, id");
+        .select("name, id, type");
 
       if (!error && besData && besData.length > 0) {
         const formattedCards = besData.map((bes) => ({
           title: bes.name,
-          link: bes.id.toString(),
-          description: bes.name,
+          link: `/${bes.id}`,
+          description: bes.type,
         }));
 
         setCards(formattedCards);
@@ -110,7 +111,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="BES Projects">
             {!loading ? (
-              filteredCards.length > 0 ? ( // Use filteredCards instead of cards
+              filteredCards.length > 0 ? (
                 <HoverEffect className="rounded-xl" items={filteredCards} />
               ) : (
                 <div className="text-center my-4">

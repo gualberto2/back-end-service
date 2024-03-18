@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import React, { useState, ReactNode } from "react";
 
-export default function DefaultLayout({
+export default function SetupLayout({
   children,
 }: {
   children: React.ReactNode;
