@@ -86,3 +86,14 @@ body,
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: white;
+  background: #6366f1;
+}
+
+::selection {
+  color: white;
+  background: #6366f1;
+}
