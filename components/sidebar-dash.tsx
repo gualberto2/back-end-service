@@ -5,16 +5,16 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { X } from "lucide-react";
 import SidebarNavigation from "./sidebarvigation";
-import { Profile } from "./ui/user-profile";
-import { Button } from "./ui/button";
 import Logout from "./logout";
+import { SidebarSection } from "@/utils/types";
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
+  content: SidebarSection[]; // Use the SidebarSection type here
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen, content }: SidebarProps) => {
   const pathname = usePathname();
 
   const trigger = useRef<any>(null);
@@ -71,7 +71,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 h-14 py-4 border-b ">
         <Link href="/">
-          <h1 className="font-OCOMNI text-green-500">OCOMNI - BES</h1>
+          <h1 className="font-OCOMNI text-green-500 tracking-tight">
+            OCOMNI - BES
+          </h1>
         </Link>
 
         <button
@@ -85,24 +87,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </button>
       </div>
       <div className="flex flex-col ">
-        <SidebarNavigation
-          section="Projects"
-          items={[{ name: "All Projects", link: "/#" }]}
-        />
-        <SidebarNavigation
-          section="Account"
-          items={[
-            { name: "Preferences", link: "/#" },
-            { name: "Security", link: "/#" },
-          ]}
-        />
-        <SidebarNavigation
-          section="Documentation"
-          items={[
-            { name: "Guides", link: "/#" },
-            { name: "API Reference", link: "/#" },
-          ]}
-        />
+        <div className="flex flex-col ">
+          {content.map((section, index) => (
+            <SidebarNavigation
+              key={index}
+              section={section.section}
+              items={section.items}
+            />
+          ))}
+        </div>
         <div className="block md:hidden">
           <Logout />
         </div>
