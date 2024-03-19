@@ -1,6 +1,7 @@
 "use client";
-import Navbar from "@/components/navbar";
-import Sidebar from "@/components/sidebar";
+import Navbar from "@/components/root-nav";
+import Sidebar from "@/components/root-sidenav";
+import { AuthProvider } from "@/context/userContext";
 import React, { useState, ReactNode } from "react";
 
 export default function SetupLayout({
@@ -10,7 +11,7 @@ export default function SetupLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <>
+    <AuthProvider>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex bg-popover h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
@@ -34,7 +35,7 @@ export default function SetupLayout({
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
       {/* <!-- ===== Page Wrapper End ===== --> */}
-    </>
+    </AuthProvider>
   );
 }
 
