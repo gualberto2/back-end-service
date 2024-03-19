@@ -73,7 +73,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
       if (!error && besData && besData.length > 0) {
         const formattedCards = besData.map((bes) => ({
           title: bes.name,
-          link: `/${bes.id}`,
+          link: `/${bes.id}/${bes.type}`,
           description: bes.type,
           type: bes.type,
         }));
