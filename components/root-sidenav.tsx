@@ -71,7 +71,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 h-14 py-4 border-b ">
         <Link href="/">
-          <h1 className="font-OCOMNI text-green-500">OCOMNI - BES</h1>
+          <h1 className="font-OCOMNI text-green-500 tracking-tight">
+            OCOMNI - BES
+          </h1>
         </Link>
 
         <button
