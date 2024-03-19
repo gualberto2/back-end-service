@@ -6,13 +6,16 @@ import { useState } from "react";
 export const HoverEffect = ({
   items,
   className,
+  onCardClick,
 }: {
   items: {
     title: string;
     description: string;
     link: string;
+    type: string;
   }[];
   className?: string;
+  onCardClick?: (type: string) => void;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -31,6 +34,9 @@ export const HoverEffect = ({
             className="relative group block p-2 h-full w-full"
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={(e) => {
+              onCardClick?.(item.type); // Call the onCardClick handler
+            }}
           >
             <AnimatePresence>
               {hoveredIndex === idx && (
