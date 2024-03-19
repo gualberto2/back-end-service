@@ -6,8 +6,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/client";
 import React, { useEffect, useState } from "react";
 
-import { Command as CommandPrimitive } from "cmdk";
-
 import {
   Command,
   CommandDialog,
@@ -22,11 +20,13 @@ import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CreateBes from "@/components/bes-create";
 import { redirect } from "next/navigation";
+import { useSelectedBes } from "@/context/selected-bes";
 
 interface Card {
   title: string;
   description: string;
   link: string;
+  type: string;
 }
 
 interface SetupPageProps {
@@ -58,6 +58,9 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   const [active, setActive] = useState<Card | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { setSelectedBesType } = useSelectedBes();
+
   const supabase = createClient();
 
   useEffect(() => {
@@ -72,6 +75,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
           title: bes.name,
           link: `/${bes.id}`,
           description: bes.type,
+          type: bes.type,
         }));
 
         setCards(formattedCards);
@@ -88,6 +92,10 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   // Step 2: Handle search input changes with type specified for event parameter
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const handleCardClick = (besType: string) => {
+    setSelectedBesType(besType);
   };
 
   // Step 3: Filter cards based on search query
@@ -112,7 +120,14 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
           <CommandGroup heading="BES Projects">
             {!loading ? (
               filteredCards.length > 0 ? (
-                <HoverEffect className="rounded-xl" items={filteredCards} />
+                <HoverEffect
+                  className="rounded-xl"
+                  items={filteredCards}
+                  onCardClick={(type) => {
+                    console.log(`Card with type ${type} was clicked.`);
+                    handleCardClick(type);
+                  }}
+                />
               ) : (
                 <div className="text-center my-4">
                   <p className="text-lg font-semibold">
