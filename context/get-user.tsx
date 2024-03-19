@@ -10,11 +10,3 @@ const auth = async () => {
 };
 
 export default auth;
-
-// const { user, authLoaded, signOut } = useContext(UserContext)
-
-// import { createContext } from 'react'
-
-// const UserContext = createContext()
-
-// export default UserContext
