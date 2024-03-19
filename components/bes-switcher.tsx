@@ -1,13 +1,7 @@
 "use client";
 
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
-import {
-  Check,
-  ChevronsUpDown,
-  PlusCircle,
-  Store as StoreIcon,
-} from "lucide-react";
-import { useBesModal } from "@/hooks/use-bes-modal";
+import { Check, ChevronsUpDown, Store as StoreIcon } from "lucide-react";
 
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -36,22 +30,22 @@ export default function BesSwitcher({
   className,
   items = [],
 }: BesSwitcherProps) {
-  const besModal = useBesModal();
   const params = useParams();
   const router = useRouter();
 
   const formattedItems = items.map((item) => ({
     label: item.name,
     value: item.id,
+    type: item.type,
   }));
 
   const currentBes = formattedItems.find((item) => item.value === params.besId);
 
   const [open, setOpen] = useState(false);
 
-  const onBesSelect = (bes: { value: string; label: string }) => {
+  const onBesSelect = (bes: { value: string; label: string; type: string }) => {
     setOpen(false);
-    router.push(`/${bes.value}`);
+    router.push(`/${bes.value}/${bes.type}`);
   };
 
   return (
@@ -97,19 +91,6 @@ export default function BesSwitcher({
             </CommandGroup>
           </CommandList>
           <CommandSeparator />
-          <CommandList>
-            <CommandGroup>
-              <CommandItem
-                onSelect={() => {
-                  setOpen(false);
-                  besModal.onOpen();
-                }}
-              >
-                <PlusCircle className="mr-2 h-5 w-5" />
-                Create Bes
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>

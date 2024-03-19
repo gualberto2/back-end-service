@@ -1,13 +1,40 @@
+"use client";
+
 import { AlignLeft } from "lucide-react";
 import { Button } from "./ui/button";
 import { Navigation } from "./navigation-menu";
 import { ThemeToggle } from "./theme-toggle";
 import { Profile } from "./ui/user-profile";
+import BesSwitcher from "./bes-switcher";
+import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
 
 const Navbar = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
+  const [besData, setBesData] = useState<Record<string, any>[]>([]);
+
+  const supabase = createClient();
+
+  const fetchData = async () => {
+    try {
+      let { data: bes, error } = await supabase.from("bes").select("*");
+
+      if (error) {
+        console.error("Error fetching data:", error);
+      } else {
+        // If 'bes' is null or undefined, default to an empty array
+        setBesData(bes || []);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <header className="sticky border-b py-2 h-14 top-0 z-40 flex flex-row items-center w-full bg-popover drop-shadow-1">
       {/* Conditional rendering based on screen size */}
@@ -28,9 +55,9 @@ const Navbar = (props: {
           </Button>
         </div>
       </div>
-      <h2 className="text-white font-thin text-sm ml-3 font-OCOMNI ">
-        Projects
-      </h2>
+      <div>
+        <BesSwitcher items={besData} />
+      </div>
       {/* Content always visible, but button is excluded for lg and up */}
       <div className="w-full">
         <div className="">
