@@ -72,11 +72,14 @@ export function Profile() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="bg-white dark:bg-black border p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800">
+      <Button
+        variant="ghost"
+        className="dark:bg-black bg-white  border p-2 rounded-full"
+      >
+        <DropdownMenuTrigger asChild>
           <User />
-        </div>
-      </DropdownMenuTrigger>
+        </DropdownMenuTrigger>
+      </Button>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
