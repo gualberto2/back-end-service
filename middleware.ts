@@ -1,7 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
+// Define your public route patterns here
+export const publicRoutesPatterns = [/^\/api\/public/];
+
 export async function middleware(request: NextRequest) {
+  const path = new URL(request.url).pathname;
+
+  // Function to test if the path matches any public route pattern
+  const isPublicRoute = publicRoutesPatterns.some((pattern) =>
+    pattern.test(path)
+  );
+
+  if (isPublicRoute) {
+    // If it is a public route, proceed without authentication
+    return NextResponse.next();
+  }
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -64,7 +78,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/api/:path*",
     //Excluded paths
-    "/((?!_next/static|_next/image|favicon.ico|auth$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api/|auth$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
