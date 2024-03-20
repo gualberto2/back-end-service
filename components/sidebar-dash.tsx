@@ -14,7 +14,13 @@ interface SidebarProps {
   content: SidebarSection[]; // Use the SidebarSection type here
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen, content }: SidebarProps) => {
+const Sidebar = ({
+  sidebarOpen,
+  setSidebarOpen,
+  content,
+  besId,
+  baseRoute,
+}: SidebarProps & { besId: string; baseRoute: string }) => {
   const pathname = usePathname();
 
   const trigger = useRef<any>(null);
@@ -64,12 +70,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, content }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-50 flex h-screen lg:w-60 flex-col overflow-y-hidden bg-popover duration-150 ease-in-out border-r  lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 flex h-screen lg:w-60 flex-col overflow-y-hidden bg-popover duration-150 ease-in-out border-r  lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 h-14 py-4 border-b ">
+      <div className="flex items-center justify-center gap-2 px-6 h-14 py-4 border-b ">
         <Link href="/">
           <h1 className="font-OCOMNI text-green-500 tracking-tight">
             OCOMNI - BES
@@ -91,13 +97,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, content }: SidebarProps) => {
           {content.map((section, index) => (
             <SidebarNavigation
               key={index}
+              besId={besId}
+              baseRoute={baseRoute}
               section={section.section}
-              items={section.items}
+              items={section.items.map((item) => ({
+                name: item.name,
+                endpoint: item.link, // This assumes your items will have 'link' as just the endpoint part
+              }))}
             />
           ))}
-        </div>
-        <div className="block md:hidden">
-          <Logout />
         </div>
       </div>
     </aside>
