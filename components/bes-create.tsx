@@ -59,38 +59,42 @@ const CreateBes = () => {
     resolver: zodResolver(formSchema),
   });
 
+  const validTypes = ["blog", "ecommerce", "helpdesk"];
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
 
-      const { data, error } = await supabase
-        .from("bes")
-        .insert([{ name: values.name, type: values.type }])
-        .select();
-
-      if (!error) {
-        toast({
-          title: "Successfully created!",
-          description: `The BES ${values.name} has been created!`,
-        });
-
-        onClose();
-
-        router.push("/");
-        await router.refresh();
-      } else {
-        toast({
-          title: "Error",
-          description: "An error occurred while creating the BES.",
-        });
+      // Ensure the type is valid before attempting to insert
+      const type = values.type.toLowerCase();
+      if (!validTypes.includes(type)) {
+        throw new Error("Invalid type provided");
       }
-    } catch (error) {
-      // Handle any other errors here
+
+      // Perform the insert into the corresponding table based on the type
+      const { error } = await supabase
+        .from(type) // Use the type variable to dynamically select the table
+        .insert([{ name: values.name }]); // Insert the name into the selected table
+
+      if (error) {
+        throw error;
+      }
+
+      // Success toast message
+      toast({
+        title: "Successfully created!",
+        description: `The ${type} named ${values.name} has been created!`,
+      });
+
+      onClose();
+      router.push("/");
+      router.refresh();
+    } catch (error: any) {
       console.error("Submission error:", error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
+        description: error.message || "There was a problem with your request.",
       });
     } finally {
       setLoading(false);

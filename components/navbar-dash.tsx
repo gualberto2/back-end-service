@@ -14,18 +14,35 @@ const Navbar = (props: {
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
   const [besData, setBesData] = useState<Record<string, any>[]>([]);
+  const [items, setItems] = useState<Record<string, any>[]>([]);
 
   const supabase = createClient();
 
   const fetchData = async () => {
     try {
-      let { data: bes, error } = await supabase.from("bes").select("*");
-
-      if (error) {
-        console.error("Error fetching data:", error);
+      const { data: blogs, error: blogError } = await supabase
+        .from("blog")
+        .select("name, id");
+      const { data: ecommerces, error: ecommerceError } = await supabase
+        .from("ecommerce")
+        .select("name, id");
+      const { data: helpdesks, error: helpdeskError } = await supabase
+        .from("helpdesk")
+        .select("name, id");
+      if (blogError || ecommerceError || helpdeskError) {
+        console.error(
+          "Error fetching data:",
+          blogError || ecommerceError || helpdeskError
+        );
       } else {
-        // If 'bes' is null or undefined, default to an empty array
-        setBesData(bes || []);
+        // Combine the results into a single array
+        const combinedItems = [
+          ...(blogs || []).map((item) => ({ ...item, type: "blog" })),
+          ...(ecommerces || []).map((item) => ({ ...item, type: "ecommerce" })),
+          ...(helpdesks || []).map((item) => ({ ...item, type: "helpdesk" })),
+        ];
+
+        setItems(combinedItems);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -57,7 +74,7 @@ const Navbar = (props: {
       </div>
       <div className="flex w-full flex-row justify-between items-center">
         <div className="md:ml-2">
-          <BesSwitcher className="bg-popover popup-z" items={besData} />
+          <BesSwitcher className="bg-popover popup-z" items={items} />
         </div>
         <div className="flex flex-row-reverse pr-3">
           <div className="hidden md:flex md:flex-row">

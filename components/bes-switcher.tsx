@@ -45,9 +45,11 @@ export default function BesSwitcher({
 
   const onBesSelect = (bes: { value: string; label: string; type: string }) => {
     setOpen(false);
-    router.push(`/${bes.value}/${bes.type}`);
-  };
 
+    const path = `/${bes.value}/${bes.type}`;
+
+    router.push(path);
+  };
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
@@ -60,7 +62,7 @@ export default function BesSwitcher({
           className={cn("w-auto justify-between", className)}
         >
           {currentBes?.label}
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 ">
