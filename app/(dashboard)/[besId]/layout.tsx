@@ -15,26 +15,63 @@ export default function DashboardLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarContent, setSidebarContent] = useState<SidebarSection[]>([]);
+  const [baseRoute, setBaseRoute] = useState("default");
 
   const params = useParams();
+  const besId = Array.isArray(params.besId) ? params.besId[0] : params.besId;
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    // Function to determine the sidebar content based on the page type
-    const determineContent = () => {
-      // You'll need to adjust this based on how you've structured your routes
-      // For example, if your route is "/dashboard/blog", then you might split the path
-      // and take the second part as the type, or adjust accordingly.
-      const pathParts = pathname.split(`/${params.besId}/`);
-      const type = pathParts[1]; // Assuming type is the second segment of the path
+    const determineBaseRoute = () => {
+      const parts = pathname.split("/");
+      const besIdIndex = parts.indexOf(besId);
+      if (
+        besIdIndex >= 0 &&
+        parts.length > besIdIndex + 1 &&
+        parts[besIdIndex + 1] !== ""
+      ) {
+        return parts[besIdIndex + 1];
+      }
+      return "default";
+    };
 
-      switch (type) {
+    // Call determineBaseRoute to get the current base route based on the URL
+    const newBaseRoute = determineBaseRoute();
+
+    // Update the baseRoute state if it's different from the current baseRoute
+    setBaseRoute(newBaseRoute);
+  }, [pathname, besId]);
+
+  useEffect(() => {
+    const determineContent = () => {
+      switch (baseRoute) {
         case "blog":
           return [
             {
-              section: "Blog",
-              items: [{ name: "Latest Posts", link: "/blog" }],
+              section: "Manage",
+              items: [
+                { name: "Create", link: "/create" },
+                { name: "Edit", link: "/edit" },
+                { name: "Upload Images", link: "/upload-images" },
+              ],
+            },
+            {
+              section: "Authors",
+              items: [
+                { name: "Add", link: "/author" },
+                { name: "Remove", link: "/author" },
+              ],
+            },
+            {
+              section: "Settings",
+              items: [
+                {
+                  name: "Change Name",
+                  link: "/settings",
+                },
+                { name: "API", link: "/settings/api" },
+              ],
             },
           ];
         case "ecommerce":
@@ -60,7 +97,8 @@ export default function DashboardLayout({
     };
 
     setSidebarContent(determineContent());
-  }, [router]);
+  }, [baseRoute]);
+
   return (
     <AuthProvider>
       <SelectedBesProvider>
@@ -72,6 +110,8 @@ export default function DashboardLayout({
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
             content={sidebarContent}
+            besId={besId}
+            baseRoute={baseRoute}
           />
           {/* <!-- ===== Sidebar End ===== --> */}
 
@@ -98,4 +138,3 @@ export default function DashboardLayout({
 }
 
 // https://sites.google.com/ucsd.edu/melanie/work
-// lorenaacarrillo_
