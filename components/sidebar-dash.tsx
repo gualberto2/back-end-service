@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { X } from "lucide-react";
 import SidebarNavigation from "./sidebarvigation";
@@ -22,6 +22,7 @@ const Sidebar = ({
   baseRoute,
 }: SidebarProps & { besId: string; baseRoute: string }) => {
   const pathname = usePathname();
+  const route = useRouter();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -76,11 +77,14 @@ const Sidebar = ({
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-center gap-2 px-6 h-14 py-4 border-b ">
-        <Link href="/">
-          <h1 className="font-OCOMNI text-green-500 tracking-tight">
-            OCOMNI - BES
-          </h1>
-        </Link>
+        <h1
+          className="font-OCOMNI text-green-500 tracking-tight"
+          onClick={() => {
+            route.push("/");
+          }}
+        >
+          OCOMNI - BES
+        </h1>
 
         <button
           ref={trigger}

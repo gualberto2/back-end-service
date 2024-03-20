@@ -17,14 +17,21 @@ const SidebarNavigation = ({
   section,
   items,
 }: SidebarNavigationProps) => {
-  const createSidebarLink = (endpoint: string): string => {
-    // Construct the base path dynamically using the besId and baseRoute
+  const createSidebarLink = (endpoint?: string): string => {
+    // If endpoint is undefined, return the root path
+    if (!endpoint) {
+      return `/${besId}`;
+    }
+
     const basePath = `/${besId}/${baseRoute}`;
-    // Ensure the endpoint is correctly formatted to avoid leading slashes
+    // If endpoint is defined but empty, return basePath
+    if (endpoint === "") {
+      return basePath;
+    }
+
     const formattedEndpoint = endpoint.startsWith("/")
       ? endpoint.slice(1)
       : endpoint;
-    // Return the dynamically constructed URL
     return `${basePath}/${formattedEndpoint}`;
   };
 
