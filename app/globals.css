@@ -97,3 +97,7 @@ body,
   color: white;
   background: #6366f1;
 }
+
+.popup-z {
+  z-index: 9999 !important;
+}
