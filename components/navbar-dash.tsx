@@ -55,19 +55,18 @@ const Navbar = (props: {
           </Button>
         </div>
       </div>
-      <div>
-        <BesSwitcher items={besData} />
-      </div>
-      {/* Content always visible, but button is excluded for lg and up */}
-      <div className="w-full">
-        <div className="">
-          <div className="hidden lg:flex items-center  px-4  flex-row justify-between">
+      <div className="flex w-full flex-row justify-between items-center">
+        <div className="md:ml-2">
+          <BesSwitcher className="bg-popover popup-z" items={besData} />
+        </div>
+        <div className="flex flex-row-reverse pr-3">
+          <div className="hidden md:flex md:flex-row">
             <Navigation className="" />
             <div className="hidden md:flex items-center space-x-4">
-              <Profile />
               <ThemeToggle />
             </div>
           </div>
+          <Profile />
         </div>
       </div>
     </header>
