@@ -49,6 +49,10 @@ export default function DashboardLayout({
         case "blog":
           return [
             {
+              section: "Home",
+              items: [{ name: "Return", link: "/" }],
+            },
+            {
               section: "Posts",
               items: [
                 { name: "Create", link: "/posts/create" },
