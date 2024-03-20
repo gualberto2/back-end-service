@@ -3,7 +3,9 @@
 import Navbar from "@/components/root-nav";
 import Sidebar from "@/components/root-sidenav";
 import { AuthProvider } from "@/context/userContext";
-import React, { useState, ReactNode } from "react";
+import { SidebarSection } from "@/utils/types";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import React, { useState, ReactNode, useEffect } from "react";
 
 export default function SetupLayout({
   children,
@@ -11,12 +13,93 @@ export default function SetupLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarContent, setSidebarContent] = useState<SidebarSection[]>([]);
+  const [baseRoute, setBaseRoute] = useState("default");
+
+  const params = useParams();
+  const besId = Array.isArray(params.besId) ? params.besId[0] : params.besId;
+  const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const determineBaseRoute = () => {
+      const parts = pathname.split("/");
+      const besIdIndex = parts.indexOf(besId);
+      if (
+        besIdIndex >= 0 &&
+        parts.length > besIdIndex + 1 &&
+        parts[besIdIndex + 1] !== ""
+      ) {
+        return parts[besIdIndex + 1];
+      }
+      return "default";
+    };
+
+    // Call determineBaseRoute to get the current base route based on the URL
+    const newBaseRoute = determineBaseRoute();
+
+    // Update the baseRoute state if it's different from the current baseRoute
+    setBaseRoute(newBaseRoute);
+  }, [pathname, besId]);
+
+  useEffect(() => {
+    const determineContent = () => {
+      switch (baseRoute) {
+        default:
+          return [
+            {
+              section: "Projects",
+              items: [{ name: "All Projects", link: "/" }],
+            },
+            {
+              section: "Settings",
+              items: [
+                { name: "Preferences", link: "/" },
+                { name: "Access Tokens", link: "/" },
+                { name: "Security", link: "/" },
+              ],
+            },
+            {
+              section: "Account",
+              items: [
+                { name: "Edit Profile", link: "/" },
+                { name: "User log", link: "/" },
+                { name: "User log", link: "/" },
+              ],
+            },
+            {
+              section: "Billing",
+              items: [
+                { name: "Subscription", link: "/" },
+                { name: "Usage", link: "/" },
+              ],
+            },
+            {
+              section: "Documentation",
+              items: [
+                { name: "Guides", link: "/" },
+                { name: "API Reference", link: "/" },
+              ],
+            },
+          ];
+      }
+    };
+
+    setSidebarContent(determineContent());
+  }, [baseRoute]);
+
   return (
     <AuthProvider>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex bg-popover h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Sidebar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          content={sidebarContent}
+          besId={besId}
+          baseRoute={baseRoute}
+        />
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Start ===== --> */}

@@ -1,21 +1,30 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { X } from "lucide-react";
 import SidebarNavigation from "./sidebarvigation";
 import { Profile } from "./ui/user-profile";
 import { Button } from "./ui/button";
 import Logout from "./logout";
+import { SidebarSection } from "@/utils/types";
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
+  content: SidebarSection[]; // Use the SidebarSection type here
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = ({
+  sidebarOpen,
+  setSidebarOpen,
+  content,
+  besId,
+  baseRoute,
+}: SidebarProps & { besId: string; baseRoute: string }) => {
   const pathname = usePathname();
+  const route = useRouter();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -69,12 +78,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 h-14 py-4 border-b ">
-        <Link href="/">
-          <h1 className="font-OCOMNI text-green-500 tracking-tight">
-            OCOMNI - BES
-          </h1>
-        </Link>
+      <div className="flex items-center justify-center gap-2 px-6 h-14 py-4 border-b ">
+        <h1
+          className="font-OCOMNI cursor-pointer hover:bg-neutral-700 text-green-500 tracking-tight"
+          onClick={() => {
+            route.push("/");
+          }}
+        >
+          OCOMNI - BES
+        </h1>
 
         <button
           ref={trigger}
@@ -87,26 +99,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </button>
       </div>
       <div className="flex flex-col ">
-        <SidebarNavigation
-          section="Projects"
-          items={[{ name: "All Projects", link: "/#" }]}
-        />
-        <SidebarNavigation
-          section="Account"
-          items={[
-            { name: "Preferences", link: "/#" },
-            { name: "Security", link: "/#" },
-          ]}
-        />
-        <SidebarNavigation
-          section="Documentation"
-          items={[
-            { name: "Guides", link: "/#" },
-            { name: "API Reference", link: "/#" },
-          ]}
-        />
-        <div className="block md:hidden">
-          <Logout />
+        <div className="flex flex-col ">
+          {content.map((section, index) => (
+            <SidebarNavigation
+              key={index}
+              besId={besId}
+              baseRoute={baseRoute}
+              section={section.section}
+              items={section.items.map((item) => ({
+                name: item.name,
+                endpoint: item.link, // This assumes your items will have 'link' as just the endpoint part
+              }))}
+            />
+          ))}
         </div>
       </div>
     </aside>
