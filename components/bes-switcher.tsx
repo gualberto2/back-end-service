@@ -52,19 +52,18 @@ export default function BesSwitcher({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           role="combobox"
           aria-expanded={open}
           aria-label="Select a Bes"
-          className={cn("w-[200px] justify-between", className)}
+          className={cn("w-auto justify-between", className)}
         >
-          <StoreIcon className="mr-2 h-4 w-4" />
           {currentBes?.label}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[200px] p-0 ">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search Bes..." />
@@ -74,10 +73,14 @@ export default function BesSwitcher({
                 <CommandItem
                   key={bes.value}
                   onSelect={() => onBesSelect(bes)}
-                  className="text-sm"
+                  className="text-sm flex flex-row items-start"
                 >
-                  <StoreIcon className="mr-2 h-4 w-4" />
-                  {bes.label}
+                  <div className="flex flex-col ">
+                    <p className="whitespace-nowrap">{bes.label}</p>
+                    <p className="whitespace-nowrap text-xs text-neutral-600">
+                      {bes.type}
+                    </p>
+                  </div>
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
