@@ -66,23 +66,28 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      let { data: besData, error } = await supabase
-        .from("bes")
-        .select("name, id, type");
+      const types = ["blog", "ecommerce", "helpdesk"]; // Your table names
+      let combinedCards: Card[] = [];
 
-      if (!error && besData && besData.length > 0) {
-        const formattedCards = besData.map((bes) => ({
-          title: bes.name,
-          link: `/${bes.id}/${bes.type}`,
-          description: bes.type,
-          type: bes.type,
-        }));
+      for (const type of types) {
+        const { data, error } = await supabase.from(type).select("name, id");
 
-        setCards(formattedCards);
-        setActive(formattedCards[0]);
-      } else {
-        console.error(error);
+        if (!error && data) {
+          // Transform data and concatenate to the combinedCards array
+          const formattedCards: Card[] = data.map((item) => ({
+            title: item.name,
+            link: `/${item.id}/${type}`, // Assuming you want to route to a type-specific URL
+            description: type,
+            type: type,
+          }));
+          combinedCards = combinedCards.concat(formattedCards);
+        } else {
+          console.error(`Error fetching data from ${type}:`, error);
+        }
       }
+
+      setCards(combinedCards);
+      setActive(combinedCards[0]); // Set the active card if necessary
       setLoading(false);
     };
 
