@@ -49,18 +49,19 @@ export default function DashboardLayout({
         case "blog":
           return [
             {
-              section: "Manage",
+              section: "Posts",
               items: [
-                { name: "Create", link: "/create" },
-                { name: "Edit", link: "/edit" },
-                { name: "Upload Images", link: "/upload-images" },
+                { name: "Create", link: "/posts/create" },
+                { name: "Edit", link: "/posts/edit" },
+                { name: "Upload Images", link: "/posts/upload" },
               ],
             },
             {
               section: "Authors",
               items: [
                 { name: "Add", link: "/author" },
-                { name: "Remove", link: "/author" },
+                { name: "Remove", link: "/author/remove" },
+                { name: "Edit", link: "/author/edit" },
               ],
             },
             {
@@ -71,6 +72,7 @@ export default function DashboardLayout({
                   link: "/settings",
                 },
                 { name: "API", link: "/settings/api" },
+                { name: "Manage", link: "/settings/manage" },
               ],
             },
           ];
