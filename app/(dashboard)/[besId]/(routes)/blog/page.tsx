@@ -47,7 +47,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ params }) => {
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
   return (
