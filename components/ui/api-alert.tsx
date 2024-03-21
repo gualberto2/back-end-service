@@ -32,14 +32,14 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
   };
 
   return (
-    <Alert>
+    <Alert className="">
       <Server className="h-4 w-4" />
       <AlertTitle className="flex items-center gap-x-2">
         {title}
         <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
       </AlertTitle>
-      <AlertDescription className="mt-4 flex items-center justify-between">
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+      <AlertDescription className="mt-4 flex flex-col md:flex-row px-auto gap-y-3 md:items-center md:justify-between">
+        <code className="rounded bg-muted px-[0.3rem] py-[0.2rem] overflow-y-hidden md:overflow-y-visible font-mono text-sm font-semibold">
           {description}
         </code>
         <Button variant="outline" size="sm" onClick={() => onCopy(description)}>

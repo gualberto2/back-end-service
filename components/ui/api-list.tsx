@@ -20,7 +20,7 @@ export const ApiList: React.FC<ApiListProps> = ({
   return (
     <>
       <ApiAlert
-        title="GET"
+        title="GET ALL"
         variant="public"
         description={`${baseUrl}/${entityName}`}
       />
