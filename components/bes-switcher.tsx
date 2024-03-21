@@ -59,7 +59,7 @@ export default function BesSwitcher({
           role="combobox"
           aria-expanded={open}
           aria-label="Select a Bes"
-          className={cn("w-auto justify-between", className)}
+          className={cn("w-auto justify-between ", className)}
         >
           {currentBes?.label}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
