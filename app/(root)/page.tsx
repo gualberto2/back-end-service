@@ -17,9 +17,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { Search } from "lucide-react";
-import { cn } from "@/lib/utils";
 import CreateBes from "@/components/bes-create";
-import { redirect } from "next/navigation";
 import { useSelectedBes } from "@/context/selected-bes";
 
 interface Card {
@@ -129,7 +127,6 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
                   className="rounded-xl"
                   items={filteredCards}
                   onCardClick={(type) => {
-                    console.log(`Card with type ${type} was clicked.`);
                     handleCardClick(type);
                   }}
                 />
