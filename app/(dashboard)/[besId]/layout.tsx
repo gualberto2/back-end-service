@@ -63,9 +63,10 @@ export default function DashboardLayout({
             {
               section: "Authors",
               items: [
+                { name: "Manage", link: "/author" },
                 { name: "Add", link: "/author/add" },
-                { name: "Remove", link: "/author/remove" },
-                { name: "Edit", link: "/author/edit" },
+                // { name: "Remove", link: "/author/remove" },
+                // { name: "Edit", link: "/author/edit" },
               ],
             },
             {
