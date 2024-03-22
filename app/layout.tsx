@@ -6,7 +6,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "@/context/userContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
