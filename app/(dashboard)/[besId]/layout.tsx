@@ -1,7 +1,7 @@
 "use client";
 import Navbar from "@/components/navbar-dash";
 import Sidebar from "@/components/sidebar-dash";
-import { SelectedBesProvider } from "@/context/selected-bes";
+
 import { AuthProvider } from "@/context/userContext";
 import { SidebarSection } from "@/utils/types";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -108,27 +108,25 @@ export default function DashboardLayout({
 
   return (
     <AuthProvider>
-      <SelectedBesProvider>
-        <div className="flex bg-popover h-screen overflow-hidden">
-          <Sidebar
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            content={sidebarContent}
-            besId={besId}
-            baseRoute={baseRoute}
-          />
+      <div className="flex bg-popover h-screen overflow-hidden">
+        <Sidebar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          content={sidebarContent}
+          besId={besId}
+          baseRoute={baseRoute}
+        />
 
-          <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-            <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+          <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-            <main>
-              <div className="mx-auto max-w-screen-2xl px-2 md:px-4 2xl:px-6">
-                {children}
-              </div>
-            </main>
-          </div>
+          <main>
+            <div className="mx-auto max-w-screen-2xl px-2 md:px-4 2xl:px-6">
+              {children}
+            </div>
+          </main>
         </div>
-      </SelectedBesProvider>
+      </div>
     </AuthProvider>
   );
 }
