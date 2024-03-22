@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/command";
 import { Search } from "lucide-react";
 import CreateBes from "@/components/bes-create";
-import { useSelectedBes } from "@/context/selected-bes";
 
 interface Card {
   title: string;
@@ -56,8 +55,6 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   const [active, setActive] = useState<Card | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const { setSelectedBesType } = useSelectedBes();
 
   const supabase = createClient();
 
@@ -98,7 +95,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   };
 
   const handleCardClick = (besType: string) => {
-    setSelectedBesType(besType);
+    // setSelectedBesType(besType);
   };
 
   // Step 3: Filter cards based on search query
