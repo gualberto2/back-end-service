@@ -34,7 +34,7 @@ const AuthorPage = ({ params }: { params: { besId: string } }) => {
 
   return (
     <div className="flex-col">
-      <div className="flex-1 space-y-4 p-8 pt-6">
+      <div className="flex-1 space-y-4 p-2 md:p-5 pt-6">
         {loading ? (
           <div className="flex flex-col md:flex-row gap-4 p-2 justify-around">
             <div className="flex flex-col space-y-3">
