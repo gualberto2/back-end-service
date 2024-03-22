@@ -31,15 +31,15 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ params }) => {
 
   const fetchData = async () => {
     try {
-      let { data: bes, error } = await supabase
-        .from("bes")
+      let { data: blog, error } = await supabase
+        .from("blog")
         .select("name, id, created_at, type")
         .eq("id", params.besId);
 
       if (error) {
         console.error("Error fetching data:", error);
       } else {
-        setBesData(bes || []);
+        setBesData(blog || []);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -47,18 +47,18 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ params }) => {
   };
 
   useEffect(() => {
-    // fetchData();
+    fetchData();
   }, []);
 
   return (
     <section className="my-6">
-      {/* {besData?.map((bes) => (
+      {besData?.map((bes) => (
         <div key={bes.id}>
           <h1>{bes.name}</h1>
           <p>Date Created: {formatDate(bes.created_at)}</p>
           <p>{bes.type}</p>
         </div>
-      ))} */}
+      ))}
       <BentoGridThirdDemo />
     </section>
   );
