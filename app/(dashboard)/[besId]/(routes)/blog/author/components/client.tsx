@@ -24,7 +24,7 @@ export const AuthorsClient: React.FC<AuthorClientProps> = ({ data }) => {
           title={`Authors (${data.length})`}
           description="Manage categories for your store"
         />
-        <Button onClick={() => router.push(`/${params.besId}/blog/author`)}>
+        <Button onClick={() => router.push(`/${params.besId}/blog/author/add`)}>
           <Plus className="mr-2 h-4 w-4" />
           Add New
         </Button>
