@@ -42,8 +42,8 @@ import { toast, useToast } from "./ui/use-toast";
 import { useBesModal } from "@/hooks/use-bes-modal";
 
 const formSchema = z.object({
-  name: z.string({ required_error: "Please enter a name" }).min(1),
-  type: z.string({ required_error: "Please enter a name" }).min(1),
+  name: z.string({ required_error: "Please enter a name" }).min(1).max(30),
+  type: z.string({ required_error: "Please enter a type" }).min(1),
 });
 
 const CreateBes = () => {
@@ -74,7 +74,7 @@ const CreateBes = () => {
       // Perform the insert into the corresponding table based on the type
       const { error } = await supabase
         .from(type) // Use the type variable to dynamically select the table
-        .insert([{ name: values.name }]); // Insert the name into the selected table
+        .insert([{ name: values.name, type: values.type }]); // Insert the name into the selected table
 
       if (error) {
         throw error;
@@ -91,6 +91,7 @@ const CreateBes = () => {
       router.refresh();
     } catch (error: any) {
       console.error("Submission error:", error);
+      console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
