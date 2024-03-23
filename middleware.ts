@@ -66,11 +66,19 @@ export async function middleware(request: NextRequest) {
       },
     }
   );
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
 
-  if (!user) {
+  // if (!user) {
+  //   return NextResponse.redirect(new URL("/auth", request.url));
+  // }
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
   return NextResponse.next();
