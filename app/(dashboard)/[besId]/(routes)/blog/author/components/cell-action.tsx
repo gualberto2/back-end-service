@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { toast } from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { AlertModal } from "@/components/modals/alert-modals";
+import { createClient } from "@/lib/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 interface CellActionProps {
   data: AuthorColumn;
@@ -24,24 +25,34 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const supabase = createClient();
   const router = useRouter();
   const params = useParams();
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Category ID copied to clipboard");
+    toast({ title: "Author ID copied to clipboard." });
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      // await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+
+      const { error } = await supabase
+        .from("author")
+        .delete()
+        .eq("id", data.id);
+
+      if (error) {
+        console.log(error);
+        throw error;
+      }
+
+      console.log(data);
       router.refresh();
-      toast.success("Category deleted.");
+      toast({ title: "Author deleted." });
     } catch (error: any) {
-      toast.error(
-        "Make sure you removed all products using this billboard first."
-      );
+      toast({ title: "Author cannot be deleted right now." });
     } finally {
       setLoading(false);
       setOpen(false);

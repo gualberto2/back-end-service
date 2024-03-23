@@ -1,6 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
 import { AuthorColumn } from "./components/columns";
 import { AuthorsClient } from "./components/client";
 import { createClient } from "@/lib/supabase/client";

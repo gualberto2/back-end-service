@@ -1,7 +1,6 @@
 "use client";
 
 import * as z from "zod";
-import axios from "axios";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,7 +19,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Heading } from "@/components/ui/heading";
 import { createClient } from "@/lib/supabase/client";
-import { AuthorColumn } from "../components/columns";
 import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
