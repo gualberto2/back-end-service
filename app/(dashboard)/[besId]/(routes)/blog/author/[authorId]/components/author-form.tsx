@@ -5,7 +5,6 @@ import * as z from "zod";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
