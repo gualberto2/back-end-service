@@ -14,3 +14,13 @@ export type Author = {
   name: string;
   created_at: string;
 };
+export type Posts = {
+  id: string;
+  name: string;
+  created_at: string;
+};
+export type Settings = {
+  id: string;
+  name: string;
+  created_at: string;
+};
