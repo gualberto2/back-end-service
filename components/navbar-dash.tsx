@@ -76,7 +76,7 @@ const Navbar = (props: {
         <div className="md:ml-2">
           <BesSwitcher className="bg-popover popup-z" items={items} />
         </div>
-        <div className="flex flex-row-reverse pr-3">
+        <div className="flex flex-row-reverse gap-2 pr-3">
           <div className="hidden md:flex md:flex-row">
             <Navigation className="" />
             <div className="hidden md:flex items-center space-x-4">
