@@ -55,6 +55,7 @@ export default function DashboardLayout({
             {
               section: "Posts",
               items: [
+                { name: "Manage", link: "/posts" },
                 { name: "Create", link: "/posts/create" },
                 { name: "Edit", link: "/posts/edit" },
                 { name: "Upload Images", link: "/posts/upload" },
@@ -65,8 +66,6 @@ export default function DashboardLayout({
               items: [
                 { name: "Manage", link: "/author" },
                 { name: "Add", link: "/author/add" },
-                // { name: "Remove", link: "/author/remove" },
-                // { name: "Edit", link: "/author/edit" },
               ],
             },
             {
@@ -74,10 +73,10 @@ export default function DashboardLayout({
               items: [
                 {
                   name: "Change Name",
-                  link: "/settings/change",
+                  link: "/settings",
                 },
                 { name: "API", link: "/settings/api" },
-                { name: "Manage", link: "/settings/manage" },
+                { name: "Manage", link: "/settings" },
               ],
             },
           ];
