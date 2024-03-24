@@ -51,14 +51,14 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ params }) => {
   }, []);
 
   return (
-    <section className="my-6">
-      {besData?.map((bes) => (
+    <section className="p-2 md:p-5 pt-10">
+      {/* {besData?.map((bes) => (
         <div key={bes.id}>
           <h1>{bes.name}</h1>
           <p>Date Created: {formatDate(bes.created_at)}</p>
           <p>{bes.type}</p>
         </div>
-      ))}
+      ))} */}
       <BentoGridThirdDemo />
     </section>
   );
