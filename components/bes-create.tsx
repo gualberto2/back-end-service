@@ -87,8 +87,8 @@ const CreateBes = () => {
       });
 
       onClose();
-      router.push("/");
       router.refresh();
+      router.push("/");
     } catch (error: any) {
       console.error("Submission error:", error);
       console.log(error);
