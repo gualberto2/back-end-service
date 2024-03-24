@@ -127,9 +127,9 @@ const Sidebar = ({
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-center gap-2 px-6 h-14 py-4 border-b ">
+      <div className="flex items-center justify-center gap-2 px-6 h-14 py-4 border-b  transition duration-150 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-700">
         <h1
-          className="font-OCOMNI cursor-pointer hover:bg-neutral-700 text-green-500 tracking-tight"
+          className="font-OCOMNI cursor-pointer text-green-500 tracking-tight"
           onClick={() => {
             route.push("/");
           }}
