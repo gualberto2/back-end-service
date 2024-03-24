@@ -11,7 +11,7 @@ const SettingsPage = ({ params }: { params: { besId: string } }) => {
   const supabase = createClient();
 
   useEffect(() => {
-    const getAuthor = async () => {
+    const getSettings = async () => {
       const { data, error } = await supabase
         .from("blog")
         .select("*")
@@ -28,7 +28,7 @@ const SettingsPage = ({ params }: { params: { besId: string } }) => {
       }
     };
 
-    getAuthor();
+    getSettings();
   }, [params.besId, supabase]);
 
   return (
