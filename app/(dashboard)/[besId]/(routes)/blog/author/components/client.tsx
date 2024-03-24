@@ -22,7 +22,7 @@ export const AuthorsClient: React.FC<AuthorClientProps> = ({ data }) => {
       <div className="flex items-center justify-between">
         <Heading
           title={`Authors (${data.length})`}
-          description="Manage categories for your store"
+          description="Manage authors for your blog"
         />
         <Button onClick={() => router.push(`/${params.besId}/blog/author/add`)}>
           <Plus className="mr-2 h-4 w-4" />
