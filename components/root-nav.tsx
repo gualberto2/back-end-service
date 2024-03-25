@@ -22,7 +22,7 @@ const Navbar = (props: {
               props.setSidebarOpen(!props.sidebarOpen);
             }}
             variant="ghost"
-            className="block rounded-sm shadow-sm text-white"
+            className="block  shadow-sm text-black dark:text-white"
           >
             <AlignLeft />
           </Button>

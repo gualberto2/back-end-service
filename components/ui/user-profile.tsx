@@ -47,7 +47,7 @@ export function Profile() {
   const router = useRouter();
 
   const supabase = createClient();
-  const user = auth();
+  // const user = auth();
 
   const handleLogout = async () => {
     try {
@@ -61,6 +61,7 @@ export function Profile() {
       toast({ title: "Successfully logged out" });
 
       router.refresh();
+      router.push("/auth");
       setLoading(false);
     } catch (error: any) {
       console.error("Logout error:", error.message);

@@ -50,7 +50,7 @@ const SidebarNavigation = ({
 
   return (
     <div>
-      <div className="flex flex-col px-8 gap-2 py-6 cursor-default text-sm font-light tracking-normal">
+      <div className="flex flex-col px-8 gap-2 py-6 cursor-default shadow-sm md:shadow-none text-sm font-light tracking-normal">
         <h3 className="text-neutral-500">{section}</h3>
         {items.map((item, index) => (
           <Link href={createSidebarLink(item.endpoint)} key={index}>
@@ -122,7 +122,7 @@ const Sidebar = ({
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 flex h-screen lg:w-60 flex-col overflow-y-hidden bg-popover duration-150 ease-in-out border-r  lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen lg:w-60 flex-col overflow-y-hidden bg-popover duration-150 ease-in-out border-r  lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

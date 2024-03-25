@@ -48,9 +48,6 @@ const Navbar = (props: {
       console.error("Error fetching data:", error);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <header className="sticky border-b py-2 h-14 top-0 z-40 flex flex-row items-center w-full bg-popover drop-shadow-1">
@@ -66,16 +63,16 @@ const Navbar = (props: {
               props.setSidebarOpen(!props.sidebarOpen);
             }}
             variant="ghost"
-            className="block rounded-sm shadow-sm text-white"
+            className="block rounded-sm  text-black dark:text-white"
           >
             <AlignLeft />
           </Button>
         </div>
       </div>
       <div className="flex w-full flex-row justify-between items-center">
-        <div className="md:ml-2">
+        {/* <div className="md:ml-2">
           <BesSwitcher className="bg-popover popup-z" items={items} />
-        </div>
+        </div> */}
         <div className="flex flex-row-reverse gap-2 pr-3">
           <div className="hidden md:flex md:flex-row">
             <Navigation className="" />
