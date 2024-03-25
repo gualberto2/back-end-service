@@ -7,13 +7,10 @@ export const publicRoutesPatterns = [/^\/api\/public/];
 export async function middleware(request: NextRequest) {
   const path = new URL(request.url).pathname;
 
-  // Function to test if the path matches any public route pattern
   const isPublicRoute = publicRoutesPatterns.some((pattern) =>
     pattern.test(path)
   );
-
   if (isPublicRoute) {
-    // If it is a public route, proceed without authentication
     return NextResponse.next();
   }
   let response = NextResponse.next({
@@ -21,6 +18,7 @@ export async function middleware(request: NextRequest) {
       headers: request.headers,
     },
   });
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -66,19 +64,12 @@ export async function middleware(request: NextRequest) {
       },
     }
   );
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
-
-  // if (!user) {
-  //   return NextResponse.redirect(new URL("/auth", request.url));
-  // }
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (!user) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
   return NextResponse.next();

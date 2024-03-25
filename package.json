@@ -30,6 +30,9 @@
     "@supabase/supabase-js": "^2.39.8",
     "@tabler/icons-react": "^3.1.0",
     "@tanstack/react-table": "^8.14.0",
+    "@tiptap/pm": "^2.2.4",
+    "@tiptap/react": "^2.2.4",
+    "@tiptap/starter-kit": "^2.2.4",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -48,6 +51,7 @@
     "react-icons": "^5.0.1",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
+    "uuidv4": "^6.2.13",
     "vaul": "^0.9.0",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
