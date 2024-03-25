@@ -16,8 +16,12 @@ export type Author = {
 };
 export type Posts = {
   id: string;
-  name: string;
-  created_at: string;
+  title: string;
+  body: string;
+  hook: string;
+  conclusion: string;
+  is_featured: boolean;
+  is_archived: boolean;
 };
 export type Settings = {
   id: string;
