@@ -57,7 +57,6 @@ export default function DashboardLayout({
               items: [
                 { name: "Manage", link: "/posts" },
                 { name: "Create", link: "/posts/create" },
-                { name: "Edit", link: "/posts/edit" },
                 { name: "Upload Images", link: "/posts/upload" },
               ],
             },
@@ -107,7 +106,7 @@ export default function DashboardLayout({
 
   return (
     <AuthProvider>
-      <div className="flex bg-popover h-screen overflow-hidden">
+      <div className="flex bg-popover z-10 h-screen overflow-hidden">
         <Sidebar
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
