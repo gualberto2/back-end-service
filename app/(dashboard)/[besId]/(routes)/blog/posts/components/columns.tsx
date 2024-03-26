@@ -7,6 +7,9 @@ import { formatDate } from "date-fns";
 export type PostsColumn = {
   id: string;
   title: string;
+  body: string;
+  conclusion: string;
+  hook: string;
   is_featured: boolean;
   is_archived: boolean;
   created_at: string;

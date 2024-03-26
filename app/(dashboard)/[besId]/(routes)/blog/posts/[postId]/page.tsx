@@ -15,10 +15,8 @@ const AuthorPage = ({ params }: { params: { besId: string } }) => {
       const { data, error } = await supabase
         .from("posts")
         .select("*")
-        .eq("blog_id", params.besId) // Assuming besId is the id of the author you want to edit
-        .single(); // Using .single() since we expect only one record
-
-      console.log(data);
+        .eq("blog_id", params.besId)
+        .single();
 
       setLoading(false);
       if (error) {

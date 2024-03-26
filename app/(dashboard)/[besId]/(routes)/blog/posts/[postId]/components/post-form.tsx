@@ -59,6 +59,8 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
         body: initialData.body,
         conclusion: initialData.conclusion,
         hook: initialData.hook,
+        is_featured: initialData.is_featured,
+        is_archived: initialData.is_archived,
       });
     }
   }, [initialData]);
@@ -70,6 +72,8 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
       body: "",
       conclusion: "",
       hook: "",
+      is_featured: false,
+      is_archived: false,
     },
   });
 
@@ -80,7 +84,14 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
         try {
           const { data: updatedData, error } = await supabase
             .from("posts")
-            .update({ title: data.title, conclusion: data.conclusion })
+            .update({
+              title: data.title,
+              conclusion: data.conclusion,
+              hook: data.hook,
+              body: data.body,
+              is_featured: data.is_featured,
+              is_archived: data.is_archived,
+            })
             .match({ id: initialData?.id });
 
           toast({ title: "success" });
