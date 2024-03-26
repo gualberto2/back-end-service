@@ -6,15 +6,24 @@ import { formatDate } from "date-fns";
 
 export type PostsColumn = {
   id: string;
-  name: string;
+  title: string;
+  is_featured: boolean;
+  is_archived: boolean;
   created_at: string;
 };
 
 export const columns: ColumnDef<PostsColumn>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => row.original.name,
+    accessorKey: "title",
+    header: "Title",
+  },
+  {
+    accessorKey: "is_featured",
+    header: "Featured",
+  },
+  {
+    accessorKey: "is_archived",
+    header: "Archived",
   },
   {
     accessorKey: "created_at",
