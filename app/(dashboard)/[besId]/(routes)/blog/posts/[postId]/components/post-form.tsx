@@ -26,7 +26,12 @@ import { createClient } from "@/lib/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
-  name: z.string().min(2),
+  title: z.string().min(2),
+  body: z.string().min(2),
+  hook: z.string().min(2),
+  conclusion: z.string().min(2),
+  is_featured: z.boolean().default(false).optional(),
+  is_archived: z.boolean().default(false).optional(),
 });
 
 type PostsFormValues = z.infer<typeof formSchema>;
@@ -50,7 +55,10 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
     if (initialData) {
       form.reset({
         ...form.getValues(),
-        name: initialData.name,
+        title: initialData.title,
+        body: initialData.body,
+        conclusion: initialData.conclusion,
+        hook: initialData.hook,
       });
     }
   }, [initialData]);
@@ -58,7 +66,10 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
   const form = useForm<PostsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      name: "",
+      title: "",
+      body: "",
+      conclusion: "",
+      hook: "",
     },
   });
 
@@ -69,7 +80,7 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
         try {
           const { data: updatedData, error } = await supabase
             .from("posts")
-            .update({ name: data.name })
+            .update({ title: data.title, conclusion: data.conclusion })
             .match({ id: initialData?.id });
 
           toast({ title: "success" });
@@ -107,16 +118,12 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
           <div className="gap-8">
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Author name"
-                      {...field}
-                    />
+                    <Input disabled={loading} placeholder="Title" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
