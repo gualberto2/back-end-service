@@ -36,7 +36,7 @@ export const AuthorsClient: React.FC<AuthorClientProps> = ({ data }) => {
         description="
       API calls for Authors"
       />
-      <ApiList entityName="authors" entityIdName="authorId" />
+      <ApiList entityName="author" entityIdName="authorId" />
     </>
   );
 };
