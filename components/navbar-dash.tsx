@@ -13,7 +13,6 @@ const Navbar = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
-  const [besData, setBesData] = useState<Record<string, any>[]>([]);
   const [items, setItems] = useState<Record<string, any>[]>([]);
 
   const supabase = createClient();
@@ -49,6 +48,10 @@ const Navbar = (props: {
     }
   };
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
   return (
     <header className="sticky border-b py-2 h-14 top-0 z-40 flex flex-row items-center w-full bg-popover drop-shadow-1">
       {/* Conditional rendering based on screen size */}
@@ -71,8 +74,9 @@ const Navbar = (props: {
       </div>
       <div className="flex w-full flex-row justify-between items-center">
         {/* <div className="md:ml-2">
-          <BesSwitcher className="bg-popover popup-z" items={items} />
+          <BesSwitcher className="bg-popover popup-z z-50" items={items} />
         </div> */}
+        <div className="ml-3">Switcher</div>
         <div className="flex flex-row-reverse gap-2 pr-3">
           <div className="hidden md:flex md:flex-row">
             <Navigation className="" />
