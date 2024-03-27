@@ -83,7 +83,14 @@ export default function DashboardLayout({
           return [
             {
               section: "Shop",
-              items: [{ name: "Products", link: "/ecommerce" }],
+              items: [{ name: "Return", link: "/ecommerce" }],
+            },
+            {
+              section: "Billboards",
+              items: [
+                { name: "Manage", link: "/billboards" },
+                { name: "New", link: "/billboards/new" },
+              ],
             },
           ];
         case "helpdesk":
