@@ -27,6 +27,10 @@ export type Billboards = {
   id: string;
   label: string;
 };
+export type Categories = {
+  id: string;
+  name: string;
+};
 export type Settings = {
   id: string;
   name: string;
