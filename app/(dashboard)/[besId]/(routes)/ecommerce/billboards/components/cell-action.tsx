@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { PostsColumn } from "./columns";
+import { BillboardColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +19,7 @@ import { createClient } from "@/lib/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 
 interface CellActionProps {
-  data: PostsColumn;
+  data: BillboardColumn;
 }
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
