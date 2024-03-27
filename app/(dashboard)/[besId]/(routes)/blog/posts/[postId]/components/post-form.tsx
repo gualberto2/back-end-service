@@ -50,7 +50,6 @@ export const PostsForm: React.FC<PostsFormProps> = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // If initialData is not null, update the default values accordingly
   useEffect(() => {
     if (initialData) {
       form.reset({
