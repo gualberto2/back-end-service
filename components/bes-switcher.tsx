@@ -46,7 +46,7 @@ export default function BesSwitcher({
   const onBesSelect = (bes: { value: string; label: string; type: string }) => {
     setOpen(false);
 
-    const path = `/${bes.value}/${bes.type}`;
+    const path = `/${bes.type}/${bes.value}`;
 
     router.push(path);
   };
