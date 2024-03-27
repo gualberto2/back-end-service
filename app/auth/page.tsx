@@ -51,8 +51,6 @@ export default function LoginPage() {
     }
   };
 
-  console.log({ loading, user });
-
   if (loading) {
     return <h1>loading..</h1>;
   }
