@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/command";
 import { Search } from "lucide-react";
 import CreateBes from "@/components/bes-create";
+import auth from "@/context/get-user";
 
 interface Card {
   title: string;
@@ -57,6 +58,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const supabase = createClient();
+  const user = auth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +89,7 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
     };
 
     fetchData();
-  }, [supabase]);
+  }, []);
 
   // Step 2: Handle search input changes with type specified for event parameter
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
