@@ -72,6 +72,7 @@ export async function middleware(request: NextRequest) {
   if (!user) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
+
   return NextResponse.next();
 }
 
