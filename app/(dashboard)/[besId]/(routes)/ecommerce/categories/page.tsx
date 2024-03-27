@@ -1,13 +1,13 @@
 "use client";
 
-import { BillboardColumn } from "./components/columns";
-import { BillboardsClient } from "./components/client";
+import { CategoryColumn } from "./components/columns";
+import { CategoriesClient } from "./components/client";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const PostsPage = ({ params }: { params: { besId: string } }) => {
-  const [billboards, setBillboards] = useState<BillboardColumn[]>([]);
+const BillboardsPage = ({ params }: { params: { besId: string } }) => {
+  const [categories, setCategories] = useState<CategoryColumn[]>([]);
   const [loading, setLoading] = useState(false);
 
   const supabase = createClient();
@@ -17,14 +17,14 @@ const PostsPage = ({ params }: { params: { besId: string } }) => {
       setLoading(true);
 
       let { data: besData, error } = await supabase
-        .from("billboard")
+        .from("categories")
         .select("*");
 
       if (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
       } else {
-        setBillboards(besData || []);
+        setCategories(besData || []);
         setLoading(false);
       }
       console.log(besData);
@@ -61,11 +61,11 @@ const PostsPage = ({ params }: { params: { besId: string } }) => {
             </div>
           </div>
         ) : (
-          <BillboardsClient data={billboards} />
+          <CategoriesClient data={categories} />
         )}
       </div>
     </div>
   );
 };
 
-export default PostsPage;
+export default BillboardsPage;

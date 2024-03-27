@@ -23,6 +23,10 @@ export type Posts = {
   is_featured: boolean;
   is_archived: boolean;
 };
+export type Billboards = {
+  id: string;
+  label: string;
+};
 export type Settings = {
   id: string;
   name: string;
