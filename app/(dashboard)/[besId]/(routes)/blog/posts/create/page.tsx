@@ -25,7 +25,6 @@ import { Heading } from "@/components/ui/heading";
 import { toast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import Tiptap from "@/components/tiptap";
-import ImageUpload from "@/components/ui/image-upload";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
