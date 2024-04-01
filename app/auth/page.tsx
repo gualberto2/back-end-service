@@ -1,6 +1,7 @@
 "use client";
 
 import { toast } from "@/components/ui/use-toast";
+
 import { createClient } from "@/lib/supabase/client";
 
 import { User } from "@supabase/supabase-js";
@@ -32,17 +33,10 @@ export default function LoginPage() {
       if (error) {
         throw new Error(error.message); // Manually throw an error to be caught
       }
-
-      // Assuming signInWithPassword was successful and no errors were thrown
       setUser(data.user);
-      console.log(data);
       toast({ title: "success!" });
-      // After successful login, redirect the user
       router.push("/"); // Adjust the redirection URL as needed
-
-      // Reset the form state here if necessary
     } catch (error) {
-      // Handle errors from Supabase or any other errors that might have been thrown
       toast({ title: "no work" });
     } finally {
       // Stop loading irrespective of the outcome

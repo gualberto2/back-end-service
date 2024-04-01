@@ -6,8 +6,6 @@ import { useState } from "react";
 
 import { toast } from "./use-toast";
 
-import auth from "@/context/get-user";
-
 import {
   Cloud,
   CreditCard,
@@ -47,7 +45,6 @@ export function Profile() {
   const router = useRouter();
 
   const supabase = createClient();
-  // const user = auth();
 
   const handleLogout = async () => {
     try {
