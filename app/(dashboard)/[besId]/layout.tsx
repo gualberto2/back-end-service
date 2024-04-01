@@ -83,13 +83,20 @@ export default function DashboardLayout({
           return [
             {
               section: "Shop",
-              items: [{ name: "Return", link: "/ecommerce" }],
+              items: [{ name: "Return", link: "/" }],
             },
             {
               section: "Billboards",
               items: [
                 { name: "Manage", link: "/billboards" },
                 { name: "New", link: "/billboards/new" },
+              ],
+            },
+            {
+              section: "Categories",
+              items: [
+                { name: "Manage", link: "/categories" },
+                { name: "New", link: "/categories/new" },
               ],
             },
           ];
