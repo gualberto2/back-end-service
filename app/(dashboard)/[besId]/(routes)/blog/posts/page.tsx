@@ -16,7 +16,10 @@ const PostsPage = ({ params }: { params: { besId: string } }) => {
     const getPosts = async () => {
       setLoading(true);
 
-      let { data: besData, error } = await supabase.from("posts").select("*");
+      let { data: besData, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("user_id", (await supabase.auth.getUser()).data.user?.id);
 
       if (error) {
         console.error("Error fetching data:", error);

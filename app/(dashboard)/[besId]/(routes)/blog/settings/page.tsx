@@ -16,6 +16,7 @@ const SettingsPage = ({ params }: { params: { besId: string } }) => {
         .from("blog")
         .select("*")
         .eq("id", params.besId)
+        .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
         .single();
 
       console.log(data);

@@ -16,7 +16,10 @@ const AuthorPage = ({ params }: { params: { besId: string } }) => {
     const getAuthors = async () => {
       setLoading(true); // Move setLoading here to indicate loading started
 
-      let { data: besData, error } = await supabase.from("author").select("*");
+      let { data: besData, error } = await supabase
+        .from("author")
+        .select("*")
+        .eq("user_id", (await supabase.auth.getUser()).data.user?.id);
 
       if (error) {
         console.error("Error fetching data:", error);
