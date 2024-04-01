@@ -1,75 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
-
-// Define your public route patterns here
-export const publicRoutesPatterns = [/^\/api\/public/];
+import auth from "./context/get-user";
 
 export async function middleware(request: NextRequest) {
-  const path = new URL(request.url).pathname;
-
-  const isPublicRoute = publicRoutesPatterns.some((pattern) =>
-    pattern.test(path)
-  );
-  if (isPublicRoute) {
-    return NextResponse.next();
-  }
+  const { user, accessToken } = await auth(request);
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value;
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-        },
-        remove(name: string, options: CookieOptions) {
-          request.cookies.set({
-            name,
-            value: "",
-            ...options,
-          });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.set({
-            name,
-            value: "",
-            ...options,
-          });
-        },
-      },
-    }
-  );
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+  if (!accessToken) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
 
@@ -80,6 +20,6 @@ export const config = {
   matcher: [
     "/api/:path*",
     //Excluded paths
-    "/((?!_next/static|_next/image|favicon.ico|api/|auth$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api$|auth$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

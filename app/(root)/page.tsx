@@ -58,16 +58,19 @@ const SetupPage: React.FC<SetupPageProps> = ({ params }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const supabase = createClient();
-  const user = auth();
 
   useEffect(() => {
     const fetchData = async () => {
+      // const user = await auth();
       setLoading(true);
       const types = ["blog", "ecommerce", "helpdesk"]; // Your table names
       let combinedCards: Card[] = [];
 
       for (const type of types) {
-        const { data, error } = await supabase.from(type).select("name, id");
+        const { data, error } = await supabase
+          .from(type)
+          .select("name, id, user_id");
+        // .match({ user_id: user });
 
         if (!error && data) {
           // Transform data and concatenate to the combinedCards array

@@ -1,20 +1,92 @@
-import { createClient } from "@/lib/supabase/client";
+import { NextRequest, NextResponse } from "next/server";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
-const auth = async () => {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+type User = {
+  id: string;
+};
 
-  // Check if user is not null before trying to access its properties
-  if (user) {
-    console.log(user.id);
-    return user;
+const getUserAuth = async (
+  request: NextRequest,
+  supabase: any
+): Promise<User | null> => {
+  const { data } = await supabase.auth.getUser();
+  if (data?.user) {
+    return data.user;
   } else {
-    // Handle the case where user is null, for example, by returning null or throwing an error
-    console.log("User not found");
     return null;
   }
+};
+
+const getSessionData = async (supabase: any): Promise<string | null> => {
+  const sessionResponse = await supabase.auth.getSession();
+  const sessionData = sessionResponse.data.session;
+
+  if (sessionData) {
+    return sessionData.access_token;
+  } else {
+    return null;
+  }
+};
+
+const auth = async (
+  request: NextRequest
+): Promise<{ user: User | null; accessToken: string | null }> => {
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return request.cookies.get(name)?.value;
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value,
+            ...options,
+          });
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          });
+          response.cookies.set({
+            name,
+            value,
+            ...options,
+          });
+        },
+        remove(name: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value: "",
+            ...options,
+          });
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          });
+          response.cookies.set({
+            name,
+            value: "",
+            ...options,
+          });
+        },
+      },
+    }
+  );
+
+  const user = await getUserAuth(request, supabase);
+  const accessToken = await getSessionData(supabase);
+
+  return { user, accessToken };
 };
 
 export default auth;

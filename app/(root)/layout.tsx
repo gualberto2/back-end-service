@@ -89,7 +89,7 @@ export default function SetupLayout({
   }, [baseRoute]);
 
   return (
-    <AuthProvider>
+    <>
       <div className="flex bg-popover h-screen overflow-hidden">
         <Sidebar
           sidebarOpen={sidebarOpen}
@@ -108,9 +108,6 @@ export default function SetupLayout({
           </main>
         </div>
       </div>
-    </AuthProvider>
+    </>
   );
 }
-
-// https://sites.google.com/ucsd.edu/melanie/work
-// lorenaacarrillo_

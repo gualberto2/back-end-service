@@ -35,6 +35,7 @@ export default function LoginPage() {
 
       // Assuming signInWithPassword was successful and no errors were thrown
       setUser(data.user);
+      console.log(data);
       toast({ title: "success!" });
       // After successful login, redirect the user
       router.push("/"); // Adjust the redirection URL as needed

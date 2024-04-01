@@ -12,12 +12,15 @@ export async function GET(
       return new NextResponse("bes ID is required", { status: 400 });
     }
 
-    let { data: besData, error } = await supabase.from("author").select("*");
+    let { data, error } = await supabase.from("author").select("*");
+
+    //   .from("author")
+    //   .select("*")
     //   .match({ blog_id: params.besId });
 
-    return NextResponse.json(besData);
+    return NextResponse.json(data);
   } catch (error) {
-    console.log(" [BILLBOARDS_GET] ", error);
+    console.log(" [AUTHOR_GET]] ", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
