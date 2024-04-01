@@ -43,7 +43,7 @@ const AddPost = ({ params }: { params: { besId: string } }) => {
       setLoading(true);
 
       const { data, error } = await supabase
-        .from("category")
+        .from("categories")
         .insert([
           {
             name: values.name,
@@ -60,7 +60,7 @@ const AddPost = ({ params }: { params: { besId: string } }) => {
       }
 
       router.refresh();
-      router.push(`/${params.besId}/ecommerce/cateogories`);
+      router.push(`/${params.besId}/ecommerce/categories`);
       toast({ title: "success" });
     } catch (error: any) {
       toast({ title: "Something went wrong.", variant: "destructive" });

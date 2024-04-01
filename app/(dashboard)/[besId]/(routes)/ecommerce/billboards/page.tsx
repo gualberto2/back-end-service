@@ -18,7 +18,8 @@ const PostsPage = ({ params }: { params: { besId: string } }) => {
 
       let { data: besData, error } = await supabase
         .from("billboard")
-        .select("*");
+        .select("*")
+        .eq("user_id", (await supabase.auth.getUser()).data.user?.id);
 
       if (error) {
         console.error("Error fetching data:", error);
