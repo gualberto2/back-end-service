@@ -67,7 +67,7 @@ export const CategoriesForm: React.FC<CategoriesFormProps> = ({
       if (initialData) {
         try {
           const { data: updatedData, error } = await supabase
-            .from("category")
+            .from("categories")
             .update({
               name: data.name,
             })
