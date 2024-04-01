@@ -26,7 +26,8 @@ export const BillboardsClient: React.FC<BillboardClientProps> = ({ data }) => {
         />
         <Button
           onClick={() =>
-            router.push(`/${params.besId}/ecommerce/billboards/new}`)
+            // if } added at the end fo a path it sends it to the edit url instead dont know why
+            router.push(`/${params.besId}/ecommerce/billboards/new`)
           }
         >
           <Plus className="mr-2 h-4 w-4" />
