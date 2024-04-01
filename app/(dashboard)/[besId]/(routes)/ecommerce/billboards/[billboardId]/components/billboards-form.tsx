@@ -38,7 +38,7 @@ interface BillboardsFormProps {
 export const BillboardsForm: React.FC<BillboardsFormProps> = ({
   initialData,
 }) => {
-  const [posts, setPosts] = useState<Billboards | null>(null);
+  const [billboards, setBillboards] = useState<Billboards | null>(null);
 
   const params = useParams();
   const router = useRouter();
@@ -69,7 +69,7 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
       if (initialData) {
         try {
           const { data: updatedData, error } = await supabase
-            .from("posts")
+            .from("billboard")
             .update({
               label: data.label,
             })
@@ -84,7 +84,7 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
         }
       }
       router.refresh();
-      router.push(`/${params.besId}/blog/posts`);
+      router.push(`/${params.besId}/ecommerce/billboards`);
     } catch (error: any) {
       toast({ title: "success" });
     } finally {
@@ -96,8 +96,8 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={"Edit Post Title"}
-          description={"Edit the name of your author here"}
+          title={"Edit Billboard Label"}
+          description={"Edit the name of your billboard here"}
         />
       </div>
       <Separator />
