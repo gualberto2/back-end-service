@@ -31,6 +31,11 @@ export type Categories = {
   id: string;
   name: string;
 };
+export type Colors = {
+  id: string;
+  name: string;
+  value: string;
+};
 export type Settings = {
   id: string;
   name: string;
