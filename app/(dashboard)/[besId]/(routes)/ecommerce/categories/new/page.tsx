@@ -74,7 +74,7 @@ const AddPost = ({ params }: { params: { besId: string } }) => {
       <div className="flex-1 space-y-4 p-2 md:p-5 pt-10">
         <div className="flex items-center justify-between">
           <Heading
-            title={"Create a billboard"}
+            title={"Create a category"}
             description={
               "You can use this for your categoried pages, some guidelines to follow here 🔗."
             }
