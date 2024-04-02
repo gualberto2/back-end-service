@@ -11,7 +11,7 @@ const BillboardPage = ({ params }: { params: { besId: string } }) => {
   const supabase = createClient();
 
   useEffect(() => {
-    const getAuthor = async () => {
+    const getCategories = async () => {
       const { data, error } = await supabase
         .from("category")
         .select("*")
@@ -26,7 +26,7 @@ const BillboardPage = ({ params }: { params: { besId: string } }) => {
       }
     };
 
-    getAuthor();
+    getCategories();
   }, [params.besId, supabase]);
 
   return (
