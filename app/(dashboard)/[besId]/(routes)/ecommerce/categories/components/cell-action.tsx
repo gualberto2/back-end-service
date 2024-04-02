@@ -39,7 +39,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       setLoading(true);
 
       const { error } = await supabase
-        .from("category")
+        .from("categories")
         .delete()
         .eq("id", data.id);
 
@@ -78,7 +78,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.besId}/blog/posts/${data.id}`)
+              router.push(`/${params.besId}/ecommerce/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 w-4 h-4" /> Update
